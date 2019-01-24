@@ -1,0 +1,16 @@
+China,Asia,1339190000,139.54315
+United States of America,North America,309975000,32.191513
+Brazil,South America,193364000,22.716728
+Japan,Asia,127380000,337.1313
+Canada,North America,34207000,3.4288814
+Indonesia,Asia,260581100,144.0
+Nigeria,Africa,173600000,190.32281
+Mexico,North America,128632004,65.32094
+Egypt,Africa,93383574,93.383575
+France,Europe,64668129,119.389496
+Italy,Europe,59801004,199.33669
+South Africa,Africa,54978907,44.982742
+South Korea,Asia,50503933,514.9421
+Colombia,South America,48654392,44.599857
+Zambia,Africa,16212000,28.95
+Ghana,Africa,27000000,0.21889706

@@ -1,0 +1,284 @@
+--------------
+LOAD DATA LOCAL INFILE 'datafilefall2018.txt' INTO TABLE product FIELDS TERMINATED BY ','
+--------------
+
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 0
+
+--------------
+SELECT * FROM product
+--------------
+
++--------+---------------+--------+----------------+
+| prodID | description   | cost   | quantityonhand |
++--------+---------------+--------+----------------+
+| 11     | Bike          | 150.00 |            200 |
+| 12     | Socks         |   2.00 |            100 |
+| 78     | Knee Pads     |  12.15 |             70 |
+| 88     | Roller Blades |  75.00 |             89 |
+| 99     | Helmet        |  29.00 |             30 |
++--------+---------------+--------+----------------+
+5 rows in set (0.00 sec)
+
+--------------
+INSERT INTO product(prodID,description,cost,quantityonhand) VALUES ('66','Elbow pads', 14.25, 120)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO product(prodID,description,cost,quantityonhand) VALUES ('51','Hockey Stick', 22.00, 100)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO agent VALUES ('99','Hugh','Grant','Springfield',16), 
+('22','Courtney','Cox','Springfield',25), 
+('66','Rosie','ODonnell','New York',100), 
+('33','David','Letterman','Bedrock',100), 
+('11','Regis','Philbin','Boston',33), 
+('12','Rosie','Cox','Ottawa',50), 
+('19','Tyler','Roberts','London',20)
+--------------
+
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO customer VALUES ('21','Homer','Simpson','Springfield','686-8956','99'), 
+('31','Sideshow','Bob','Springfield','686-5555','66'), 
+('12','Monty','Burns','Springfield','789-0000','99'), 
+('15','Fred','Flintstone','Bedrock','777-2345','11'), 
+('13','Super','Man','Kypto','888-1234','33'), 
+('10','Barney','Rubble','Bedrock','777-1234','11'), 
+('14','Peter','Griffens','Providence','987-4567','99')
+--------------
+
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+--------------
+INSERT INTO purchases VALUES ('21', '99', 20)
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO purchases VALUES ('21', '12', 14)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO purchases VALUES ('21', '66', 10)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO purchases VALUES ('31', '99', 1)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO purchases VALUES ('31', '12', 2)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO purchases VALUES ('31', '78', 4)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO purchases VALUES ('31', '66', 2)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO purchases VALUES ('15', '66', 2)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO purchases VALUES ('15', '78', 2)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO purchases VALUES ('14', '66', 19)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM product
+--------------
+
++--------+---------------+--------+----------------+
+| prodID | description   | cost   | quantityonhand |
++--------+---------------+--------+----------------+
+| 11     | Bike          | 150.00 |            200 |
+| 12     | Socks         |   2.00 |            100 |
+| 51     | Hockey Stick  |  22.00 |            100 |
+| 66     | Elbow pads    |  14.25 |            120 |
+| 78     | Knee Pads     |  12.15 |             70 |
+| 88     | Roller Blades |  75.00 |             89 |
+| 99     | Helmet        |  29.00 |             30 |
++--------+---------------+--------+----------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM agent
+--------------
+
++---------+-----------+-----------+-------------+------------+
+| agentID | firstname | lastname  | city        | commission |
++---------+-----------+-----------+-------------+------------+
+| 11      | Regis     | Philbin   | Boston      |         33 |
+| 12      | Rosie     | Cox       | Ottawa      |         50 |
+| 19      | Tyler     | Roberts   | London      |         20 |
+| 22      | Courtney  | Cox       | Springfield |         25 |
+| 33      | David     | Letterman | Bedrock     |        100 |
+| 66      | Rosie     | ODonnell  | New York    |        100 |
+| 99      | Hugh      | Grant     | Springfield |         16 |
++---------+-----------+-----------+-------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM customer
+--------------
+
++-------+-----------+------------+-------------+-------------+---------+
+| cusID | firstname | lastname   | city        | phonenumber | agentID |
++-------+-----------+------------+-------------+-------------+---------+
+| 10    | Barney    | Rubble     | Bedrock     | 777-1234    | 11      |
+| 12    | Monty     | Burns      | Springfield | 789-0000    | 99      |
+| 13    | Super     | Man        | Kypto       | 888-1234    | 33      |
+| 14    | Peter     | Griffens   | Providence  | 987-4567    | 99      |
+| 15    | Fred      | Flintstone | Bedrock     | 777-2345    | 11      |
+| 21    | Homer     | Simpson    | Springfield | 686-8956    | 99      |
+| 31    | Sideshow  | Bob        | Springfield | 686-5555    | 66      |
++-------+-----------+------------+-------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM purchases
+--------------
+
++-------+--------+----------+
+| cusID | prodID | Quantity |
++-------+--------+----------+
+| 14    | 66     |       19 |
+| 15    | 66     |        2 |
+| 15    | 78     |        2 |
+| 21    | 12     |       14 |
+| 21    | 66     |       10 |
+| 21    | 99     |       20 |
+| 31    | 12     |        2 |
+| 31    | 66     |        2 |
+| 31    | 78     |        4 |
+| 31    | 99     |        1 |
++-------+--------+----------+
+10 rows in set (0.00 sec)
+
+--------------
+UPDATE customer SET lastname = 'Woman', firstname="Wonder" WHERE lastname = 'Man' AND firstname="Super"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE purchases SET quantity = 5 WHERE cusid in (SELECT cusid FROM customer WHERE firstname = 'Sideshow')
+--------------
+
+Query OK, 4 rows affected (0.13 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+--------------
+UPDATE customer SET city = 'Boston' WHERE agentid in (SELECT agentid FROM agent WHERE firstname = 'Regis')
+--------------
+
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+--------------
+SELECT * FROM product
+--------------
+
++--------+---------------+--------+----------------+
+| prodID | description   | cost   | quantityonhand |
++--------+---------------+--------+----------------+
+| 11     | Bike          | 150.00 |            200 |
+| 12     | Socks         |   2.00 |            100 |
+| 51     | Hockey Stick  |  22.00 |            100 |
+| 66     | Elbow pads    |  14.25 |            120 |
+| 78     | Knee Pads     |  12.15 |             70 |
+| 88     | Roller Blades |  75.00 |             89 |
+| 99     | Helmet        |  29.00 |             30 |
++--------+---------------+--------+----------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM agent
+--------------
+
++---------+-----------+-----------+-------------+------------+
+| agentID | firstname | lastname  | city        | commission |
++---------+-----------+-----------+-------------+------------+
+| 11      | Regis     | Philbin   | Boston      |         33 |
+| 12      | Rosie     | Cox       | Ottawa      |         50 |
+| 19      | Tyler     | Roberts   | London      |         20 |
+| 22      | Courtney  | Cox       | Springfield |         25 |
+| 33      | David     | Letterman | Bedrock     |        100 |
+| 66      | Rosie     | ODonnell  | New York    |        100 |
+| 99      | Hugh      | Grant     | Springfield |         16 |
++---------+-----------+-----------+-------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM customer
+--------------
+
++-------+-----------+------------+-------------+-------------+---------+
+| cusID | firstname | lastname   | city        | phonenumber | agentID |
++-------+-----------+------------+-------------+-------------+---------+
+| 10    | Barney    | Rubble     | Boston      | 777-1234    | 11      |
+| 12    | Monty     | Burns      | Springfield | 789-0000    | 99      |
+| 13    | Wonder    | Woman      | Kypto       | 888-1234    | 33      |
+| 14    | Peter     | Griffens   | Providence  | 987-4567    | 99      |
+| 15    | Fred      | Flintstone | Boston      | 777-2345    | 11      |
+| 21    | Homer     | Simpson    | Springfield | 686-8956    | 99      |
+| 31    | Sideshow  | Bob        | Springfield | 686-5555    | 66      |
++-------+-----------+------------+-------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM purchases
+--------------
+
++-------+--------+----------+
+| cusID | prodID | Quantity |
++-------+--------+----------+
+| 14    | 66     |       19 |
+| 15    | 66     |        2 |
+| 15    | 78     |        2 |
+| 21    | 12     |       14 |
+| 21    | 66     |       10 |
+| 21    | 99     |       20 |
+| 31    | 12     |        5 |
+| 31    | 66     |        5 |
+| 31    | 78     |        5 |
+| 31    | 99     |        5 |
++-------+--------+----------+
+10 rows in set (0.00 sec)
+
+Bye

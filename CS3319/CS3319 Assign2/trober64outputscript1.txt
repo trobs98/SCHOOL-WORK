@@ -1,0 +1,67 @@
+--------------
+SHOW DATABASES
+--------------
+
+Database
+information_schema
+assignment2
+mysql
+performance_schema
+trober64assign2db
+--------------
+DROP DATABASE IF EXISTS trober64assign2db
+--------------
+
+--------------
+CREATE DATABASE trober64assign2db
+--------------
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+--------------
+GRANT ALL PRIVILEGES ON trober64assign2db.* TO 'ta'@'localhost'
+--------------
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+--------------
+CREATE TABLE product (prodid VARCHAR(2),description VARCHAR(20),cost FLOAT,quantOnHand INT, PRIMARY KEY (prodid))
+--------------
+
+--------------
+CREATE TABLE agent (agentid VARCHAR(2),afname VARCHAR(30),alname VARCHAR(30),acity VARCHAR(15),commission FLOAT, PRIMARY KEY (agentid))
+--------------
+
+--------------
+CREATE TABLE customer (custid VARCHAR(2),cfname VARCHAR(30),clname VARCHAR(30),ccity VARCHAR(15),phoneno INT,agentid VARCHAR(2),PRIMARY KEY(custid),FOREIGN KEY (agentid) REFERENCES agent(agentid) ON DELETE RESTRICT)
+--------------
+
+--------------
+CREATE TABLE purchases (customer_id VARCHAR(2) NOT NULL,product_id VARCHAR(2) NOT NULL,purchquant INT NOT NULL,PRIMARY KEY(customer_id,product_id),INDEX(customer_id),INDEX(product_id),FOREIGN KEY (customer_id) REFERENCES customer(custid) ON UPDATE CASCADE ON DELETE RESTRICT, FOREIGN KEY (product_id) REFERENCES product(prodid))
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+Tables_in_trober64assign2db
+agent
+customer
+product
+purchases

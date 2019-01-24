@@ -1,0 +1,47 @@
+-- File 3: Tyler Roberts
+USE trober64assign2db;
+
+-- Query 1
+SELECT description FROM product;
+
+-- Query 2
+SELECT DISTINCT ccity FROM customer;
+
+-- Query 3
+SELECT * FROM agent ORDER BY acity;
+
+-- Query 4
+SELECT cfname, clname FROM customer WHERE ccity="Springfield";
+
+-- Query 5
+SELECT clname FROM customer WHERE agentid=(SELECT agentid FROM agent WHERE afname="Regis");
+
+-- Query 6
+SELECT description FROM product WHERE description LIKE '%pad%' OR description LIKE '%Pad%';
+
+-- Query 7
+SELECT clname,description,purchquant FROM purchases JOIN customer ON (customer.custid=purchases.customer_id) JOIN product ON (product.prodid=purchases.product_id);
+
+-- Query 8
+SELECT COUNT(*) AS "Homer's Total Purchases" FROM purchases WHERE customer_id=(SELECT custid FROM customer WHERE cfname='Homer');
+
+-- Query 9
+SELECT cfname,clname,COUNT(*) FROM customer JOIN purchases ON customer.custid=purchases.customer_id GROUP BY purchases.customer_id;
+
+-- Query 10 
+SELECT description,quantOnHand FROM product LEFT JOIN purchases ON product.prodid=purchases.product_id WHERE purchases.product_id IS NULL;
+
+-- Query 11
+SELECT description,quantOnHand FROM product WHERE prodid NOT IN(SELECT product_id FROM purchases JOIN customer ON purchases.customer_id=customer.custid WHERE customer.cfname="Fred" AND customer.clname="Flintstone");
+
+-- Query 12
+SELECT afname,alname,cfname,clname FROM agent JOIN customer ON (agent.acity=customer.ccity);
+
+-- Query 13
+SELECT COUNT(purchquant) AS 'Total Knee Pads Purchased' FROM purchases WHERE purchases.product_id=(SELECT prodid FROM product WHERE description="Knee Pads");
+
+-- Query 14 
+SELECT description FROM product WHERE prodid IN(SELECT prodid FROM (SELECT product_id, count(*) as c FROM purchases GROUP BY product_id HAVING c >= 3) as x);
+
+-- Query 15
+SELECT afname, alname FROM agent WHERE agentid IN (SELECT agentid FROM customer JOIN purchases ON customer.custid=purchases.customer_id JOIN product ON purchases.product_id=product.prodid WHERE product.description="Knee Pads");

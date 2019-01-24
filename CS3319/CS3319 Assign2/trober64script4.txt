@@ -1,0 +1,30 @@
+-- File 4
+
+USE trober64assign2db;
+
+-- Show data in tables
+
+SELECT * FROM product;
+SELECT * FROM customer;
+SELECT * FROM agent;
+SELECT * FROM purchases;
+
+-- Create the View and show that it works
+CREATE VIEW PurchaseHistory AS SELECT customer.cfname,customer.clname,product.description,product.cost,SUM(purchases.purchquant) AS Total_Quantity,SUM(product.cost*purchases.purchquant) AS Total_Spent FROM (customer JOIN purchases ON customer.custid=purchases.customer_id) JOIN product ON purchases.product_id=product.prodid GROUP BY customer.clname,product.description;
+SELECT * FROM PurchaseHistory;
+
+-- Show the rows of the view where people that spent greater than 100 
+SELECT * FROM PurchaseHistory WHERE Total_Spent > 100;
+
+-- Delete the product that I made in script 2
+DELETE FROM product WHERE description='Soccer Ball';
+
+-- Show that the product I made has been deleted correctly
+SELECT * FROM product;
+
+-- Attempt to delete the agent's from Springfield
+DELETE FROM agent WHERE acity='Springfield';
+
+-- This does not work as we have restrictions on the agents. 
+-- This is due to the fact that the agents id number is a foreign key in the customer table.
+-- Thus if the agent's id is in the customer table then it cannot be deleted which is why this attempt of deleting agents from Springfield results in an error.  

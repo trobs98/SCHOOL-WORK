@@ -1,0 +1,67 @@
+-- Tyler's Script 2 File
+
+
+-- load data from a file
+USE trober64assign2db;
+LOAD DATA LOCAL INFILE 'datafilefall2018.txt' INTO TABLE product FIELDS TERMINATED BY ',';
+SELECT * FROM product;
+
+-- insert more products
+
+INSERT INTO product(prodID,description,cost,quantityonhand) VALUES ('66','Elbow pads', 14.25, 120);
+INSERT INTO product(prodID,description,cost,quantityonhand) VALUES ('51','Hockey Stick', 22.00, 100);
+
+-- insert agent data
+
+INSERT INTO agent VALUES ('99','Hugh','Grant','Springfield',16), \
+('22','Courtney','Cox','Springfield',25), \
+('66','Rosie','ODonnell','New York',100), \
+('33','David','Letterman','Bedrock',100), \
+('11','Regis','Philbin','Boston',33), \
+('12','Rosie','Cox','Ottawa',50), \
+('19','Tyler','Roberts','London',20); 
+
+
+-- insert customer data
+
+INSERT INTO customer VALUES ('21','Homer','Simpson','Springfield','686-8956','99'), \
+('31','Sideshow','Bob','Springfield','686-5555','66'), \
+('12','Monty','Burns','Springfield','789-0000','99'), \
+('15','Fred','Flintstone','Bedrock','777-2345','11'), \
+('13','Super','Man','Kypto','888-1234','33'), \
+('10','Barney','Rubble','Bedrock','777-1234','11'), \
+('14','Peter','Griffens','Providence','987-4567','99'); 
+
+-- insert purchase data
+
+INSERT INTO purchases VALUES ('21', '99', 20);
+INSERT INTO purchases VALUES ('21', '12', 14);
+INSERT INTO purchases VALUES ('21', '66', 10);
+INSERT INTO purchases VALUES ('31', '99', 1);
+INSERT INTO purchases VALUES ('31', '12', 2);
+INSERT INTO purchases VALUES ('31', '78', 4);
+INSERT INTO purchases VALUES ('31', '66', 2);
+INSERT INTO purchases VALUES ('15', '66', 2);
+INSERT INTO purchases VALUES ('15', '78', 2);
+INSERT INTO purchases VALUES ('14', '66', 19);
+
+-- check the tables
+
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM purchases;
+
+-- do some updates
+
+UPDATE customer SET lastname = 'Woman', firstname="Wonder" WHERE lastname = 'Man' AND firstname="Super";
+UPDATE purchases SET quantity = 5 WHERE cusid in (SELECT cusid FROM customer WHERE firstname = 'Sideshow');
+UPDATE customer SET city = 'Boston' WHERE agentid in (SELECT agentid FROM agent WHERE firstname = 'Regis');
+
+-- check the tables
+
+SELECT * FROM product;
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM purchases;
+

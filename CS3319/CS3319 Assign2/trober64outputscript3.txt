@@ -1,0 +1,138 @@
+--------------
+SELECT description FROM product
+--------------
+
+description
+Bike
+Socks
+Soccer Ball
+Elbow Pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT DISTINCT ccity FROM customer
+--------------
+
+ccity
+Boston
+Springfield
+Kypto
+Providence
+--------------
+SELECT * FROM agent ORDER BY acity
+--------------
+
+agentid	afname	alname	acity	commission
+33	David	Letterman	Bedrock	100
+11	Regis	Philbin	Boston	33
+14	Tyler	Roberts	London	100
+22	Courtney	Cox	New York	25
+12	Rosie	Cox	Ottawa	50
+66	Rosie	ODonell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT cfname, clname FROM customer WHERE ccity="Springfield"
+--------------
+
+cfname	clname
+Monty	Burns
+Homer	Simpson
+Sideshow	Bob
+--------------
+SELECT clname FROM customer WHERE agentid=(SELECT agentid FROM agent WHERE afname="Regis")
+--------------
+
+clname
+Rubble
+Flintstone
+--------------
+SELECT description FROM product WHERE description LIKE '%pad%' OR description LIKE '%Pad%'
+--------------
+
+description
+Elbow Pads
+Knee Pads
+--------------
+SELECT clname,description,purchquant FROM purchases JOIN customer ON (customer.custid=purchases.customer_id) JOIN product ON (product.prodid=purchases.product_id)
+--------------
+
+clname	description	purchquant
+Griffens	Elbow Pads	19
+Flintstone	Elbow Pads	2
+Flintstone	Knee Pads	2
+Simpson	Socks	14
+Simpson	Elbow Pads	10
+Simpson	Helmet	20
+Bob	Socks	5
+Bob	Elbow Pads	5
+Bob	Knee Pads	5
+Bob	Helmet	5
+--------------
+SELECT COUNT(*) AS "Homer's Total Purchases" FROM purchases WHERE customer_id=(SELECT custid FROM customer WHERE cfname='Homer')
+--------------
+
+Homer's Total Purchases
+3
+--------------
+SELECT cfname,clname,COUNT(*) FROM customer JOIN purchases ON customer.custid=purchases.customer_id GROUP BY purchases.customer_id
+--------------
+
+cfname	clname	COUNT(*)
+Peter	Griffens	1
+Fred	Flintstone	2
+Homer	Simpson	3
+Sideshow	Bob	4
+--------------
+SELECT description,quantOnHand FROM product LEFT JOIN purchases ON product.prodid=purchases.product_id WHERE purchases.product_id IS NULL
+--------------
+
+description	quantOnHand
+Bike	200
+Soccer Ball	15
+Roller Blades	89
+--------------
+SELECT description,quantOnHand FROM product WHERE prodid NOT IN(SELECT product_id FROM purchases JOIN customer ON purchases.customer_id=customer.custid WHERE customer.cfname="Fred" AND customer.clname="Flintstone")
+--------------
+
+description	quantOnHand
+Bike	200
+Socks	100
+Soccer Ball	15
+Roller Blades	89
+Helmet	30
+--------------
+SELECT afname,alname,cfname,clname FROM agent JOIN customer ON (agent.acity=customer.ccity)
+--------------
+
+afname	alname	cfname	clname
+Regis	Philbin	Barney	Rubble
+Hugh	Grant	Monty	Burns
+Regis	Philbin	Fred	Flintstone
+Hugh	Grant	Homer	Simpson
+Hugh	Grant	Sideshow	Bob
+--------------
+SELECT COUNT(purchquant) AS 'Total Knee Pads Purchased' FROM purchases WHERE purchases.product_id=(SELECT prodid FROM product WHERE description="Knee Pads")
+--------------
+
+Total Knee Pads Purchased
+2
+--------------
+SELECT description FROM product WHERE prodid IN(SELECT prodid FROM (SELECT product_id, count(*) as c FROM purchases GROUP BY product_id HAVING c >= 3) as x)
+--------------
+
+description
+Bike
+Socks
+Soccer Ball
+Elbow Pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT afname, alname FROM agent WHERE agentid IN (SELECT agentid FROM customer JOIN purchases ON customer.custid=purchases.customer_id JOIN product ON purchases.product_id=product.prodid WHERE product.description="Knee Pads")
+--------------
+
+afname	alname
+Regis	Philbin
+Rosie	ODonell

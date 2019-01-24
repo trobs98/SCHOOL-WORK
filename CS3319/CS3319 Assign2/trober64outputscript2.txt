@@ -1,0 +1,258 @@
+--------------
+SHOW DATABASES
+--------------
+
+Database
+information_schema
+assignment2
+mysql
+performance_schema
+trober64assign2db
+--------------
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE trober64assign2db.product FIELDS TERMINATED BY ','
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+prodid	description	cost	quantOnHand
+11	Bike	150	200
+12	Socks	2	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO product VALUES(66,'Elbow Pads',14.25,120)
+--------------
+
+--------------
+INSERT INTO product VALUES(14,'Soccer Ball',29.99,15)
+--------------
+
+--------------
+INSERT INTO agent VALUES(99,'Hugh','Grant','Springfield',16)
+--------------
+
+--------------
+INSERT INTO agent VALUES(22,'Courtney','Cox','New York',25)
+--------------
+
+--------------
+INSERT INTO agent VALUES(66,'Rosie','ODonell','Ottawa',100)
+--------------
+
+--------------
+INSERT INTO agent VALUES(33,'David','Letterman','Bedrock',100)
+--------------
+
+--------------
+INSERT INTO agent VALUES(11,'Regis','Philbin','Boston',33)
+--------------
+
+--------------
+INSERT INTO agent VALUES(12,'Rosie','Cox','Ottawa',50)
+--------------
+
+--------------
+INSERT INTO agent VALUES(14,'Tyler','Roberts','London',100)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(21,'Homer','Simpson','Springfield',6868956)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(31,'Sideshow','Bob','Springfield',6865555)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(12,'Monty','Burns','Springfield',7890000)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(15,'Fred','Flintstone','Bedrock',7772345)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(13,'Super','Man','Kypto',8881234)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(10,'Barney','Rubble','Bedrock',7771234)
+--------------
+
+--------------
+INSERT INTO customer(custid,cfname,clname,ccity,phoneno) VALUES(14,'Peter','Griffens','Providence',9874567)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Homer"),(SELECT prodid FROM product WHERE description="Helmet"),20)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Homer"),(SELECT prodid FROM product WHERE description="Socks"),14)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Homer"),(SELECT prodid FROM product WHERE description="Elbow Pads"),10)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Sideshow"),(SELECT prodid FROM product WHERE description="Helmet"),1)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Sideshow"),(SELECT prodid FROM product WHERE description="Socks"),2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Sideshow"),(SELECT prodid FROM product WHERE description="Knee Pads"),4)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Sideshow"),(SELECT prodid FROM product WHERE description="Elbow Pads"),2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Fred"),(SELECT prodid FROM product WHERE description="Elbow Pads"),2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Fred"),(SELECT prodid FROM product WHERE description="Knee Pads"),2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES((SELECT custid FROM customer WHERE cfname="Peter"),(SELECT prodid FROM product WHERE description="Elbow Pads"),19)
+--------------
+
+--------------
+UPDATE customer SET agentid="99" WHERE cfname="Homer" OR cfname="Monty" OR cfname="Peter"
+--------------
+
+--------------
+UPDATE customer SET agentid="33" WHERE cfname="Super"
+--------------
+
+--------------
+UPDATE customer SET agentid="11" WHERE cfname="Barney" OR cfname="Fred"
+--------------
+
+--------------
+UPDATE customer SET agentid="66" WHERE cfname="Sideshow"
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+prodid	description	cost	quantOnHand
+11	Bike	150	200
+12	Socks	2	100
+14	Soccer Ball	29.99	15
+66	Elbow Pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM customer
+--------------
+
+custid	cfname	clname	ccity	phoneno	agentid
+10	Barney	Rubble	Bedrock	7771234	11
+12	Monty	Burns	Springfield	7890000	99
+13	Super	Man	Kypto	8881234	33
+14	Peter	Griffens	Providence	9874567	99
+15	Fred	Flintstone	Bedrock	7772345	11
+21	Homer	Simpson	Springfield	6868956	99
+31	Sideshow	Bob	Springfield	6865555	66
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	afname	alname	acity	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+14	Tyler	Roberts	London	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM purchases
+--------------
+
+customer_id	product_id	purchquant
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	2
+31	66	2
+31	78	4
+31	99	1
+--------------
+UPDATE customer SET cfname="Wonder",clname="Woman" WHERE cfname="Super" AND clname="Man"
+--------------
+
+--------------
+UPDATE purchases SET purchquant="5" WHERE customer_id=(SELECT custid FROM customer WHERE cfname="Sideshow")
+--------------
+
+--------------
+UPDATE customer SET ccity="Boston" WHERE agentid=(SELECT agentid FROM agent WHERE afname="Regis")
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+prodid	description	cost	quantOnHand
+11	Bike	150	200
+12	Socks	2	100
+14	Soccer Ball	29.99	15
+66	Elbow Pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM customer
+--------------
+
+custid	cfname	clname	ccity	phoneno	agentid
+10	Barney	Rubble	Boston	7771234	11
+12	Monty	Burns	Springfield	7890000	99
+13	Wonder	Woman	Kypto	8881234	33
+14	Peter	Griffens	Providence	9874567	99
+15	Fred	Flintstone	Boston	7772345	11
+21	Homer	Simpson	Springfield	6868956	99
+31	Sideshow	Bob	Springfield	6865555	66
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	afname	alname	acity	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+14	Tyler	Roberts	London	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM purchases
+--------------
+
+customer_id	product_id	purchquant
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	5
+31	66	5
+31	78	5
+31	99	5

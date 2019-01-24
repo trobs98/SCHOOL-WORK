@@ -1,0 +1,98 @@
+ERROR 1451 (23000) at line 26: Cannot delete or update a parent row: a foreign key constraint fails (`trober64assign2db`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`agentid`) REFERENCES `agent` (`agentid`))
+--------------
+SELECT * FROM product
+--------------
+
+prodid	description	cost	quantOnHand
+11	Bike	150	200
+12	Socks	2	100
+14	Soccer Ball	29.99	15
+66	Elbow Pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM customer
+--------------
+
+custid	cfname	clname	ccity	phoneno	agentid
+10	Barney	Rubble	Boston	7771234	11
+12	Monty	Burns	Springfield	7890000	99
+13	Wonder	Woman	Kypto	8881234	33
+14	Peter	Griffens	Providence	9874567	99
+15	Fred	Flintstone	Boston	7772345	11
+21	Homer	Simpson	Springfield	6868956	99
+31	Sideshow	Bob	Springfield	6865555	66
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	afname	alname	acity	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+14	Tyler	Roberts	London	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM purchases
+--------------
+
+customer_id	product_id	purchquant
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	5
+31	66	5
+31	78	5
+31	99	5
+--------------
+CREATE VIEW PurchaseHistory AS SELECT customer.cfname,customer.clname,product.description,product.cost,SUM(purchases.purchquant) AS Total_Quantity,SUM(product.cost*purchases.purchquant) AS Total_Spent FROM (customer JOIN purchases ON customer.custid=purchases.customer_id) JOIN product ON purchases.product_id=product.prodid GROUP BY customer.clname,product.description
+--------------
+
+--------------
+SELECT * FROM PurchaseHistory
+--------------
+
+cfname	clname	description	cost	Total_Quantity	Total_Spent
+Sideshow	Bob	Elbow Pads	14.25	5	71.25
+Sideshow	Bob	Helmet	29	5	145
+Sideshow	Bob	Knee Pads	12.15	5	60.74999809265137
+Sideshow	Bob	Socks	2	5	10
+Fred	Flintstone	Elbow Pads	14.25	2	28.5
+Fred	Flintstone	Knee Pads	12.15	2	24.299999237060547
+Peter	Griffens	Elbow Pads	14.25	19	270.75
+Homer	Simpson	Elbow Pads	14.25	10	142.5
+Homer	Simpson	Helmet	29	20	580
+Homer	Simpson	Socks	2	14	28
+--------------
+SELECT * FROM PurchaseHistory WHERE Total_Spent > 100
+--------------
+
+cfname	clname	description	cost	Total_Quantity	Total_Spent
+Sideshow	Bob	Helmet	29	5	145
+Peter	Griffens	Elbow Pads	14.25	19	270.75
+Homer	Simpson	Elbow Pads	14.25	10	142.5
+Homer	Simpson	Helmet	29	20	580
+--------------
+DELETE FROM product WHERE description='Soccer Ball'
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+prodid	description	cost	quantOnHand
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow Pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+DELETE FROM agent WHERE acity='Springfield'
+--------------

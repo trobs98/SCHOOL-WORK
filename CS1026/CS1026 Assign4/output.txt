@@ -1,0 +1,15 @@
+Name|Continent|Population|PopulationDensity
+Brazil|South America|193364000|22.72
+Canada|North America|34207000|3.43
+China|Asia|1339190000|139.54
+Colombia|South America|48654392|44.6
+Egypt|Africa|93383574|93.38
+France|Europe|64668129|119.39
+Indonesia|Asia|260581100|144.0
+Italy|Europe|59801004|199.34
+Japan|Asia|127380000|337.13
+Mexico|North America|128632004|65.32
+Nigeria|Africa|186987563|205.0
+South Africa|Africa|54978907|44.98
+South Korea|Asia|50503933|514.94
+United States of America|North America|309975000|32.19
